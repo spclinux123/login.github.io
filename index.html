@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>loginpage</title>
+  </head>
+  <link rel="stylesheet" href="index.css">
+  <body>
+
+    <div class="container">
+      <a href="javascript:void(0)" onclick= "fbLogin();">Login With Facebook</a>
+    </div>
+
+
+    <script>
+      window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '317976906775375',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v7.0'
+    });
+          
+    FB.AppEvents.logPageView();   
+          
+};
+    
+(function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}
+(document, 'script', 'facebook-jssdk'));
+    
+    
+function fbLogin() {
+    FB.login(function(response) {
+    if(response.authResponse) {
+        fbAfterlogin();
+    }
+    });
+}
+    
+    function fbAfterLogin(){
+           
+        FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') { 
+          FB.api('/me', function(response) {
+           console.log(response);
+         });
+        }
+     });
+    }
+    </script>
+  </body>
+</html>
